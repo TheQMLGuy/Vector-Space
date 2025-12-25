@@ -1,0 +1,313 @@
+<div class="circuit-simulator">
+    <!-- Header -->
+    <div class="sim-header">
+        <div class="section-header">
+            <span class="section-icon">⚡</span>
+            <h1 class="section-title">Circuit Simulator</h1>
+            <span class="badge badge-cyan" id="sim-status">Ready</span>
+        </div>
+        <div class="sim-controls">
+            <button class="btn btn-success" id="btn-simulate">▶ Simulate</button>
+            <button class="btn btn-secondary" id="btn-clear">🗑️ Clear</button>
+            <button class="btn btn-secondary" id="btn-export">💾 Export</button>
+        </div>
+    </div>
+
+    <div class="sim-workspace">
+        <!-- Component Library -->
+        <div class="component-library">
+            <h3 class="library-title">Components</h3>
+
+            <div class="component-category">
+                <div class="category-label">Sources</div>
+                <div class="component-item" draggable="true" data-type="dc_voltage">
+                    <div class="component-icon">
+                        <svg viewBox="0 0 40 40" width="32" height="32">
+                            <circle cx="20" cy="20" r="12" fill="none" stroke="currentColor" stroke-width="2" />
+                            <line x1="16" y1="20" x2="24" y2="20" stroke="currentColor" stroke-width="2" />
+                            <line x1="20" y1="16" x2="20" y2="24" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <span>DC Voltage</span>
+                </div>
+                <div class="component-item" draggable="true" data-type="dc_current">
+                    <div class="component-icon">
+                        <svg viewBox="0 0 40 40" width="32" height="32">
+                            <circle cx="20" cy="20" r="12" fill="none" stroke="currentColor" stroke-width="2" />
+                            <path d="M15 20 L25 20 M22 17 L25 20 L22 23" fill="none" stroke="currentColor"
+                                stroke-width="2" />
+                        </svg>
+                    </div>
+                    <span>DC Current</span>
+                </div>
+                <div class="component-item" draggable="true" data-type="ac_voltage">
+                    <div class="component-icon">
+                        <svg viewBox="0 0 40 40" width="32" height="32">
+                            <circle cx="20" cy="20" r="12" fill="none" stroke="currentColor" stroke-width="2" />
+                            <path d="M14 20 Q17 14, 20 20 Q23 26, 26 20" fill="none" stroke="currentColor"
+                                stroke-width="2" />
+                        </svg>
+                    </div>
+                    <span>AC Voltage</span>
+                </div>
+            </div>
+
+            <div class="component-category">
+                <div class="category-label">Passive</div>
+                <div class="component-item" draggable="true" data-type="resistor">
+                    <div class="component-icon">
+                        <svg viewBox="0 0 40 40" width="32" height="32">
+                            <path d="M5 20 L10 20 L12 15 L16 25 L20 15 L24 25 L28 15 L30 20 L35 20" fill="none"
+                                stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <span>Resistor</span>
+                </div>
+                <div class="component-item" draggable="true" data-type="capacitor">
+                    <div class="component-icon">
+                        <svg viewBox="0 0 40 40" width="32" height="32">
+                            <line x1="5" y1="20" x2="17" y2="20" stroke="currentColor" stroke-width="2" />
+                            <line x1="17" y1="10" x2="17" y2="30" stroke="currentColor" stroke-width="2" />
+                            <line x1="23" y1="10" x2="23" y2="30" stroke="currentColor" stroke-width="2" />
+                            <line x1="23" y1="20" x2="35" y2="20" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <span>Capacitor</span>
+                </div>
+                <div class="component-item" draggable="true" data-type="inductor">
+                    <div class="component-icon">
+                        <svg viewBox="0 0 40 40" width="32" height="32">
+                            <path
+                                d="M5 20 L8 20 Q12 20 12 16 Q12 12 16 12 Q20 12 20 16 Q20 20 24 20 Q28 20 28 16 Q28 12 32 12 L32 20 L35 20"
+                                fill="none" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <span>Inductor</span>
+                </div>
+            </div>
+
+            <div class="component-category">
+                <div class="category-label">Semiconductors</div>
+                <div class="component-item" draggable="true" data-type="diode">
+                    <div class="component-icon">
+                        <svg viewBox="0 0 40 40" width="32" height="32">
+                            <line x1="5" y1="20" x2="15" y2="20" stroke="currentColor" stroke-width="2" />
+                            <polygon points="15,12 15,28 27,20" fill="none" stroke="currentColor" stroke-width="2" />
+                            <line x1="27" y1="12" x2="27" y2="28" stroke="currentColor" stroke-width="2" />
+                            <line x1="27" y1="20" x2="35" y2="20" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <span>Diode</span>
+                </div>
+                <div class="component-item" draggable="true" data-type="led">
+                    <div class="component-icon">
+                        <svg viewBox="0 0 40 40" width="32" height="32">
+                            <line x1="5" y1="20" x2="15" y2="20" stroke="currentColor" stroke-width="2" />
+                            <polygon points="15,12 15,28 27,20" fill="none" stroke="currentColor" stroke-width="2" />
+                            <line x1="27" y1="12" x2="27" y2="28" stroke="currentColor" stroke-width="2" />
+                            <line x1="27" y1="20" x2="35" y2="20" stroke="currentColor" stroke-width="2" />
+                            <path d="M24 8 L28 4 M28 8 L32 4" stroke="var(--accent-yellow)" stroke-width="1.5" />
+                        </svg>
+                    </div>
+                    <span>LED</span>
+                </div>
+            </div>
+
+            <div class="component-category">
+                <div class="category-label">Switches</div>
+                <div class="component-item" draggable="true" data-type="switch">
+                    <div class="component-icon">
+                        <svg viewBox="0 0 40 40" width="32" height="32">
+                            <circle cx="12" cy="20" r="3" fill="currentColor" />
+                            <circle cx="28" cy="20" r="3" fill="none" stroke="currentColor" stroke-width="2" />
+                            <line x1="5" y1="20" x2="9" y2="20" stroke="currentColor" stroke-width="2" />
+                            <line x1="31" y1="20" x2="35" y2="20" stroke="currentColor" stroke-width="2" />
+                            <line x1="15" y1="20" x2="25" y2="12" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <span>Switch</span>
+                </div>
+            </div>
+
+            <div class="component-category">
+                <div class="category-label">Meters</div>
+                <div class="component-item" draggable="true" data-type="voltmeter">
+                    <div class="component-icon">
+                        <svg viewBox="0 0 40 40" width="32" height="32">
+                            <circle cx="20" cy="20" r="12" fill="none" stroke="currentColor" stroke-width="2" />
+                            <text x="20" y="25" text-anchor="middle" fill="currentColor" font-size="14"
+                                font-weight="bold">V</text>
+                        </svg>
+                    </div>
+                    <span>Voltmeter</span>
+                </div>
+                <div class="component-item" draggable="true" data-type="ammeter">
+                    <div class="component-icon">
+                        <svg viewBox="0 0 40 40" width="32" height="32">
+                            <circle cx="20" cy="20" r="12" fill="none" stroke="currentColor" stroke-width="2" />
+                            <text x="20" y="25" text-anchor="middle" fill="currentColor" font-size="14"
+                                font-weight="bold">A</text>
+                        </svg>
+                    </div>
+                    <span>Ammeter</span>
+                </div>
+            </div>
+
+            <div class="component-category">
+                <div class="category-label">Other</div>
+                <div class="component-item" draggable="true" data-type="ground">
+                    <div class="component-icon">
+                        <svg viewBox="0 0 40 40" width="32" height="32">
+                            <line x1="20" y1="5" x2="20" y2="15" stroke="currentColor" stroke-width="2" />
+                            <line x1="10" y1="15" x2="30" y2="15" stroke="currentColor" stroke-width="2" />
+                            <line x1="13" y1="20" x2="27" y2="20" stroke="currentColor" stroke-width="2" />
+                            <line x1="16" y1="25" x2="24" y2="25" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <span>Ground</span>
+                </div>
+                <div class="component-item" draggable="true" data-type="bulb">
+                    <div class="component-icon">
+                        <svg viewBox="0 0 40 40" width="32" height="32">
+                            <circle cx="20" cy="18" r="10" fill="none" stroke="currentColor" stroke-width="2" />
+                            <line x1="16" y1="12" x2="24" y2="24" stroke="currentColor" stroke-width="1.5" />
+                            <line x1="24" y1="12" x2="16" y2="24" stroke="currentColor" stroke-width="1.5" />
+                            <line x1="17" y1="28" x2="23" y2="28" stroke="currentColor" stroke-width="2" />
+                            <line x1="20" y1="28" x2="20" y2="35" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <span>Bulb</span>
+                </div>
+                <div class="component-item" draggable="true" data-type="wire">
+                    <div class="component-icon">
+                        <svg viewBox="0 0 40 40" width="32" height="32">
+                            <line x1="5" y1="20" x2="35" y2="20" stroke="currentColor" stroke-width="3" />
+                        </svg>
+                    </div>
+                    <span>Wire</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Circuit Canvas -->
+        <div class="canvas-wrapper">
+            <div class="canvas-toolbar">
+                <button class="tool-btn active" id="tool-select" title="Select (V)">
+                    <svg viewBox="0 0 24 24" width="18" height="18">
+                        <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" fill="currentColor" />
+                    </svg>
+                </button>
+                <button class="tool-btn" id="tool-wire" title="Wire (W)">
+                    <svg viewBox="0 0 24 24" width="18" height="18">
+                        <path d="M4 12h16M12 4v16" stroke="currentColor" stroke-width="2" fill="none" />
+                    </svg>
+                </button>
+                <button class="tool-btn" id="tool-delete" title="Delete (Del)">
+                    <svg viewBox="0 0 24 24" width="18" height="18">
+                        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+                            fill="currentColor" />
+                    </svg>
+                </button>
+                <div class="tool-divider"></div>
+                <button class="tool-btn" id="tool-rotate" title="Rotate (R)">
+                    <svg viewBox="0 0 24 24" width="18" height="18">
+                        <path
+                            d="M12 6V3L8 7l4 4V8c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"
+                            fill="currentColor" />
+                    </svg>
+                </button>
+                <button class="tool-btn" id="tool-duplicate" title="Duplicate (Ctrl+D)">
+                    <svg viewBox="0 0 24 24" width="18" height="18">
+                        <path
+                            d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"
+                            fill="currentColor" />
+                    </svg>
+                </button>
+                <div class="tool-divider"></div>
+                <button class="tool-btn" id="tool-zoom-in" title="Zoom In">+</button>
+                <button class="tool-btn" id="tool-zoom-out" title="Zoom Out">−</button>
+                <span class="zoom-level" id="zoom-level">100%</span>
+            </div>
+            <div class="circuit-canvas" id="circuit-canvas">
+                <svg id="circuit-svg" width="100%" height="100%">
+                    <defs>
+                        <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.05)"
+                                stroke-width="0.5" />
+                        </pattern>
+                        <pattern id="grid-major" width="100" height="100" patternUnits="userSpaceOnUse">
+                            <path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.1)"
+                                stroke-width="0.5" />
+                        </pattern>
+                        <!-- Component markers -->
+                        <marker id="terminal" markerWidth="8" markerHeight="8" refX="4" refY="4">
+                            <circle cx="4" cy="4" r="3" fill="var(--accent-cyan)" />
+                        </marker>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#grid)" />
+                    <rect width="100%" height="100%" fill="url(#grid-major)" />
+                    <!-- Wires layer -->
+                    <g id="wires-layer"></g>
+                    <!-- Components layer -->
+                    <g id="components-layer"></g>
+                    <!-- Temp wire layer (while drawing) -->
+                    <g id="temp-layer"></g>
+                </svg>
+            </div>
+            <div class="canvas-hint" id="canvas-hint">Drag components from the library or click "Wire" to connect</div>
+        </div>
+
+        <!-- Properties Panel -->
+        <div class="properties-panel" id="properties-panel">
+            <h3 class="panel-title">Properties</h3>
+            <div class="no-selection" id="no-selection">
+                <span class="no-selection-icon">📋</span>
+                <p>Select a component to view properties</p>
+            </div>
+            <div class="component-props" id="component-props" style="display: none;">
+                <div class="prop-header">
+                    <span class="prop-type" id="prop-type">Resistor</span>
+                    <span class="prop-id" id="prop-id">#1</span>
+                </div>
+                <div class="prop-group">
+                    <label class="prop-label" id="prop-value-label">Resistance</label>
+                    <div class="prop-input-group">
+                        <input type="number" class="input input-mono" id="prop-value" value="1000">
+                        <select class="select prop-unit" id="prop-unit">
+                            <option value="1">Ω</option>
+                            <option value="1000" selected>kΩ</option>
+                            <option value="1000000">MΩ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="prop-group">
+                    <label class="prop-label">Rotation</label>
+                    <div class="rotation-btns">
+                        <button class="btn btn-sm btn-secondary" id="rotate-ccw">↺</button>
+                        <span id="rotation-value">0°</span>
+                        <button class="btn btn-sm btn-secondary" id="rotate-cw">↻</button>
+                    </div>
+                </div>
+                <div class="prop-divider"></div>
+                <div class="prop-results" id="prop-results" style="display: none;">
+                    <div class="result-label">Simulation Results</div>
+                    <div class="result-item">
+                        <span>Voltage:</span>
+                        <span id="result-voltage">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Current:</span>
+                        <span id="result-current">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Power:</span>
+                        <span id="result-power">-</span>
+                    </div>
+                </div>
+                <button class="btn btn-danger btn-sm" id="btn-delete-component" style="width: 100%; margin-top: 16px;">
+                    🗑️ Delete Component
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

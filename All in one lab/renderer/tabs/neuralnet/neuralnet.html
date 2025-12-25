@@ -1,0 +1,275 @@
+<div class="section-header">
+    <span class="section-icon">🕸️</span>
+    <h1 class="section-title">Neural Network Lab</h1>
+    <span class="badge badge-cyan">Interactive Learning</span>
+</div>
+
+<div class="grid grid-2 gap-lg">
+    <!-- Network Architecture -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Network Architecture</h2>
+            <div class="flex gap-sm">
+                <button class="btn btn-sm btn-secondary" id="btn-randomize">🔀 Randomize</button>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">Layer Configuration</label>
+            <input type="text" class="input input-mono" id="layer-config" value="2, 4, 1" placeholder="2, 4, 1">
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Inputs → Hidden → Output (hover
+                connections to see weights)</p>
+        </div>
+
+        <div class="grid grid-2 gap-sm" style="margin-top: 8px;">
+            <div class="input-group">
+                <label class="input-label">Activation Function</label>
+                <select class="select" id="activation-select">
+                    <option value="sigmoid">Sigmoid (0 to 1)</option>
+                    <option value="tanh">Tanh (-1 to 1)</option>
+                    <option value="relu">ReLU (0 to ∞)</option>
+                    <option value="leaky_relu">Leaky ReLU</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label class="input-label">Weight Init</label>
+                <select class="select" id="init-select">
+                    <option value="xavier">Xavier/Glorot</option>
+                    <option value="he">He (for ReLU)</option>
+                    <option value="uniform">Uniform [-1, 1]</option>
+                    <option value="zero">All Zeros</option>
+                    <option value="custom">Custom...</option>
+                </select>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" id="btn-build" style="width: 100%; margin-top: 12px;">
+            🏗️ Build Network
+        </button>
+
+        <div class="divider"></div>
+
+        <!-- Network Visualization -->
+        <div id="network-container" style="min-height: 200px; position: relative;">
+            <canvas id="network-canvas"></canvas>
+            <div id="tooltip" class="nn-tooltip"></div>
+        </div>
+
+        <div class="grid grid-4 gap-sm" style="margin-top: 12px;">
+            <div class="result-box" style="padding: 6px; text-align: center;">
+                <div class="result-label">Layers</div>
+                <div class="result-value" id="info-layers">0</div>
+            </div>
+            <div class="result-box" style="padding: 6px; text-align: center;">
+                <div class="result-label">Neurons</div>
+                <div class="result-value" id="info-neurons">0</div>
+            </div>
+            <div class="result-box" style="padding: 6px; text-align: center;">
+                <div class="result-label">Weights</div>
+                <div class="result-value" id="info-weights">0</div>
+            </div>
+            <div class="result-box" style="padding: 6px; text-align: center;">
+                <div class="result-label">Biases</div>
+                <div class="result-value" id="info-biases">0</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Training -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Training</h2>
+            <div class="status" id="training-status">
+                <span class="status-dot green"></span>
+                <span>Ready</span>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">Dataset</label>
+            <select class="select" id="dataset-select">
+                <option value="xor">XOR (Non-linear)</option>
+                <option value="and">AND Gate</option>
+                <option value="or">OR Gate</option>
+                <option value="nand">NAND Gate</option>
+                <option value="xnor">XNOR Gate</option>
+                <option value="custom">Custom Dataset</option>
+            </select>
+        </div>
+
+        <div id="problem-box" class="problem-box"></div>
+
+        <div id="custom-data-box" style="display: none; margin-top: 8px;">
+            <textarea id="custom-data" class="input input-mono" rows="4"
+                placeholder='[{"in":[0,0],"out":[0]},{"in":[1,0],"out":[1]}]'></textarea>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="grid grid-3 gap-sm">
+            <div class="input-group">
+                <label class="input-label">Learning Rate</label>
+                <input type="number" class="input" id="learning-rate" value="1.0" min="0.001" max="10" step="0.1">
+            </div>
+            <div class="input-group">
+                <label class="input-label">Epochs</label>
+                <input type="number" class="input" id="epochs" value="1000" min="10" max="50000" step="100">
+            </div>
+            <div class="input-group">
+                <label class="input-label">Batch Size</label>
+                <select class="select" id="batch-size">
+                    <option value="1">1 (SGD)</option>
+                    <option value="4" selected>4 (Mini-batch)</option>
+                    <option value="full">All (Batch GD)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="flex gap-sm" style="margin-top: 12px;">
+            <button class="btn btn-success" id="btn-train" style="flex: 1;">▶ Train</button>
+            <button class="btn btn-secondary" id="btn-pause">⏸</button>
+            <button class="btn btn-danger" id="btn-stop">⏹</button>
+        </div>
+
+        <div style="margin-top: 12px;">
+            <div class="flex justify-between" style="margin-bottom: 4px;">
+                <span class="input-label">Progress</span>
+                <span id="epoch-display" style="font-size: 12px;">0 / 0</span>
+            </div>
+            <div style="background: var(--bg-tertiary); border-radius: 8px; height: 14px; overflow: hidden;">
+                <div id="progress-bar"
+                    style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple)); transition: width 0.1s;">
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-2 gap-sm" style="margin-top: 12px;">
+            <div class="result-box" style="padding: 10px; text-align: center;">
+                <div class="result-label">Loss (MSE)</div>
+                <div class="result-value" id="loss-display">-</div>
+            </div>
+            <div class="result-box" style="padding: 10px; text-align: center;">
+                <div class="result-label">Accuracy</div>
+                <div class="result-value" id="accuracy-display">-</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loss Chart -->
+<div class="card" style="margin-top: 20px;">
+    <div class="card-header">
+        <h2 class="card-title">📉 Training Loss</h2>
+        <button class="btn btn-sm btn-secondary" id="btn-export">📥 Export Data</button>
+    </div>
+    <div style="height: 180px;">
+        <canvas id="loss-chart"></canvas>
+    </div>
+</div>
+
+<!-- Data Hub Integration -->
+<div class="card" style="margin-top: 20px;">
+    <div class="card-header">
+        <h2 class="card-title">🔄 Data Hub</h2>
+        <span class="badge badge-purple">Cross-Tab</span>
+    </div>
+    <div class="grid grid-2 gap-lg">
+        <div>
+            <label class="input-label">Export to Hub</label>
+            <div class="hub-actions">
+                <button class="export-btn" id="hub-export-weights">📊 Weight Matrices</button>
+                <button class="export-btn" id="hub-export-loss">📈 Loss History</button>
+                <button class="export-btn" id="hub-export-accuracy">📉 Accuracy History</button>
+                <button class="export-btn" id="hub-export-all">📦 All Network Data</button>
+            </div>
+        </div>
+        <div>
+            <label class="input-label">Import from Hub</label>
+            <div class="hub-actions">
+                <button class="import-btn" id="hub-import-weights">📊 Import Weights</button>
+                <button class="import-btn" id="hub-import-dataset">📋 Import Dataset</button>
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">
+                Import matrices from Matrices tab, or datasets from Statistics tab
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Weight Visualization -->
+<div class="card" style="margin-top: 20px;">
+    <div class="card-header">
+        <h2 class="card-title">⚖️ Weight Evolution (Click to Edit)</h2>
+        <div class="flex gap-sm">
+            <select class="select" id="weight-layer-filter" style="width: 120px;">
+                <option value="all">All Layers</option>
+            </select>
+        </div>
+    </div>
+    <div id="weights-container" class="weights-grid"></div>
+</div>
+
+<!-- Bias Visualization -->
+<div class="card" style="margin-top: 20px;">
+    <div class="card-header">
+        <h2 class="card-title">⚖️ Bias Evolution (Click to Edit)</h2>
+    </div>
+    <div id="biases-container" class="weights-grid"></div>
+</div>
+
+<!-- Test / Inference -->
+<div class="card" style="margin-top: 20px;">
+    <div class="card-header">
+        <h2 class="card-title">🧪 Test & Inference</h2>
+    </div>
+
+    <div class="grid grid-2 gap-lg">
+        <div>
+            <div class="input-group">
+                <label class="input-label">Input Values</label>
+                <input type="text" class="input input-mono" id="test-input" value="1, 0" placeholder="e.g., 1, 0">
+            </div>
+            <button class="btn btn-primary" id="btn-test" style="width: 100%; margin-top: 8px;">Run Inference →</button>
+        </div>
+        <div>
+            <label class="input-label">Network Output</label>
+            <div class="result-box" style="padding: 16px; text-align: center; margin-top: 4px;">
+                <div class="result-value" id="test-output" style="font-size: 24px; color: var(--accent-cyan);">-</div>
+                <div id="test-interpretation" style="font-size: 12px; color: var(--text-muted); margin-top: 4px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- All predictions table -->
+    <div style="margin-top: 16px;">
+        <label class="input-label">All Predictions</label>
+        <div id="predictions-table" style="margin-top: 8px;"></div>
+    </div>
+</div>
+
+<!-- Weight Editor Modal -->
+<div id="edit-modal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="edit-title">Edit Weight</h3>
+            <button class="btn btn-sm btn-secondary" id="edit-close">✕</button>
+        </div>
+        <div class="modal-body">
+            <div class="input-group">
+                <label class="input-label">Value</label>
+                <input type="number" class="input input-mono" id="edit-value" step="0.0001"
+                    style="font-size: 20px; text-align: center;">
+            </div>
+            <div class="flex gap-sm" style="margin-top: 12px;">
+                <button class="btn btn-secondary" id="edit-zero" style="flex:1;">Set 0</button>
+                <button class="btn btn-secondary" id="edit-rand" style="flex:1;">Random</button>
+                <button class="btn btn-secondary" id="edit-one" style="flex:1;">Set 1</button>
+                <button class="btn btn-secondary" id="edit-neg" style="flex:1;">Set -1</button>
+            </div>
+            <button class="btn btn-primary" id="edit-save" style="width: 100%; margin-top: 12px;">💾 Save</button>
+        </div>
+        <div class="modal-chart">
+            <canvas id="edit-chart"></canvas>
+        </div>
+    </div>
+</div>

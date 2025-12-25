@@ -1,0 +1,289 @@
+/* ===================================
+   Calculus & Graphs Tab Styles
+   =================================== */
+
+/* Function Input Rows */
+.function-input-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding: 12px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+    transition: all var(--transition-fast);
+}
+
+.function-input-row:hover {
+    border-color: var(--border-glow);
+}
+
+.function-input-row .input-group {
+    margin-bottom: 0;
+}
+
+.color-picker-wrapper {
+    width: 40px;
+    height: 38px;
+    padding: 4px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-subtle);
+}
+
+.function-color {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    background: transparent;
+}
+
+.function-color::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.function-color::-webkit-color-swatch {
+    border: none;
+    border-radius: var(--radius-sm);
+}
+
+.btn-remove-function {
+    width: 32px;
+    height: 38px;
+    padding: 0;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-remove-function:hover {
+    background: rgba(255, 68, 68, 0.2);
+    color: #ff4444;
+    border-color: #ff4444;
+}
+
+/* Derivative & Integral Graphs */
+#derivative-graph,
+#integral-graph {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(255, 0, 170, 0.03));
+}
+
+/* Critical Points Container */
+.critical-points-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.critical-point-card {
+    flex: 1;
+    min-width: 150px;
+    padding: 12px 16px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--accent-cyan);
+    transition: all var(--transition-fast);
+}
+
+.critical-point-card.maximum {
+    border-left-color: var(--accent-green);
+}
+
+.critical-point-card.minimum {
+    border-left-color: var(--accent-magenta);
+}
+
+.critical-point-card.inflection {
+    border-left-color: var(--accent-yellow);
+}
+
+.critical-point-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.critical-point-type {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.critical-point-type.maximum {
+    color: var(--accent-green);
+}
+
+.critical-point-type.minimum {
+    color: var(--accent-magenta);
+}
+
+.critical-point-type.inflection {
+    color: var(--accent-yellow);
+}
+
+.critical-point-coords {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+/* Taylor Series Polynomial Display */
+#taylor-polynomial {
+    font-size: 14px;
+    line-height: 1.6;
+    font-family: var(--font-mono);
+}
+
+/* Graph Legends */
+.graph-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 12px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    margin-top: 12px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.legend-color {
+    width: 16px;
+    height: 3px;
+    border-radius: 2px;
+}
+
+/* Interactive Point Highlight */
+.point-highlight {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--accent-cyan);
+    border: 2px solid var(--bg-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+}
+
+/* Formula Display */
+.formula-display {
+    padding: 16px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    font-family: var(--font-mono);
+    font-size: 16px;
+    text-align: center;
+    color: var(--accent-cyan);
+    border: 1px solid var(--border-subtle);
+}
+
+.formula-display .operator {
+    color: var(--accent-magenta);
+    margin: 0 8px;
+}
+
+.formula-display .variable {
+    color: var(--text-primary);
+}
+
+/* Integration Area Visual */
+.integration-info {
+    display: flex;
+    justify-content: space-around;
+    padding: 12px;
+    background: rgba(0, 255, 136, 0.1);
+    border-radius: var(--radius-md);
+    margin-top: 12px;
+}
+
+.integration-info-item {
+    text-align: center;
+}
+
+.integration-info-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.integration-info-value {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--accent-green);
+    margin-top: 4px;
+}
+
+/* Plotly Styling Overrides */
+.graph-container .plotly {
+    border-radius: var(--radius-lg);
+}
+
+.js-plotly-plot .plotly .modebar {
+    background: transparent !important;
+}
+
+.js-plotly-plot .plotly .modebar-btn path {
+    fill: var(--text-secondary) !important;
+}
+
+.js-plotly-plot .plotly .modebar-btn:hover path {
+    fill: var(--accent-cyan) !important;
+}
+
+/* Animation for calculations */
+@keyframes calculate-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(0, 212, 255, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 212, 255, 0);
+    }
+}
+
+.calculating {
+    animation: calculate-pulse 1s ease-in-out infinite;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: 1fr;
+    }
+
+    .function-input-row {
+        flex-wrap: wrap;
+    }
+
+    .function-input-row .input-group {
+        width: 100%;
+    }
+}

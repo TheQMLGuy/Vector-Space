@@ -1,0 +1,406 @@
+/**
+ * QAGI Lab - Integration Panel Styles
+ */
+
+/* ==================== Toggle Button ==================== */
+.data-hub-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(139, 92, 246, 0.1));
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.data-hub-toggle:hover {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(139, 92, 246, 0.2));
+    border-color: rgba(0, 212, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+.hub-icon {
+    font-size: 16px;
+}
+
+.hub-label {
+    font-size: 13px;
+    font-weight: 500;
+    flex: 1;
+    text-align: left;
+}
+
+.hub-badge {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    background: var(--accent-cyan);
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #000;
+}
+
+/* ==================== Integration Panel ==================== */
+.integration-panel {
+    position: fixed;
+    left: 220px;
+    bottom: 20px;
+    width: 360px;
+    max-height: 500px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.integration-panel.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.integration-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.integration-header h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.integration-actions {
+    display: flex;
+    gap: 4px;
+}
+
+/* ==================== Filter Tabs ==================== */
+.integration-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-subtle);
+    overflow-x: auto;
+}
+
+.int-tab {
+    padding: 6px 12px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.int-tab:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.int-tab.active {
+    background: rgba(0, 212, 255, 0.1);
+    border-color: rgba(0, 212, 255, 0.3);
+    color: var(--accent-cyan);
+}
+
+/* ==================== Content ==================== */
+.integration-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+    min-height: 200px;
+    max-height: 350px;
+}
+
+.hub-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 180px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.hub-empty-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+}
+
+.hub-empty p {
+    margin: 4px 0;
+    font-size: 13px;
+}
+
+.hub-empty-hint {
+    font-size: 11px !important;
+    opacity: 0.6;
+    max-width: 200px;
+}
+
+/* ==================== Item Cards ==================== */
+.hub-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    margin-bottom: 6px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.hub-item:hover {
+    background: rgba(0, 212, 255, 0.05);
+    border-color: rgba(0, 212, 255, 0.2);
+}
+
+.hub-item-icon {
+    font-size: 20px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-sm);
+}
+
+.hub-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.hub-item-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hub-item-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.hub-item-actions {
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.hub-item:hover .hub-item-actions {
+    opacity: 1;
+}
+
+.btn-icon-sm {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 12px;
+    opacity: 0.6;
+    transition: all 0.15s ease;
+}
+
+.btn-icon-sm:hover {
+    background: rgba(255, 255, 255, 0.1);
+    opacity: 1;
+}
+
+/* ==================== Footer ==================== */
+.integration-footer {
+    padding: 8px 16px;
+    border-top: 1px solid var(--border-subtle);
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+/* ==================== Modal ==================== */
+.hub-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.2s ease;
+}
+
+.hub-modal {
+    width: 90%;
+    max-width: 480px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.25s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hub-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.hub-modal-header h4 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.hub-modal-body {
+    padding: 16px 20px;
+}
+
+.hub-detail-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.hub-detail-row .label {
+    color: var(--text-muted);
+    min-width: 80px;
+}
+
+.hub-detail-data {
+    margin-top: 16px;
+}
+
+.hub-detail-data .label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.hub-detail-data pre {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    max-height: 200px;
+    overflow: auto;
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.hub-modal-footer {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    padding: 12px 20px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+/* ==================== Export/Import Buttons (for tabs) ==================== */
+.export-btn,
+.import-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.export-btn {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 212, 255, 0.05));
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    color: var(--accent-cyan);
+}
+
+.export-btn:hover {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 212, 255, 0.1));
+    border-color: var(--accent-cyan);
+}
+
+.import-btn {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05));
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    color: var(--accent-purple);
+}
+
+.import-btn:hover {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.1));
+    border-color: var(--accent-purple);
+}
+
+/* ==================== Hub Action Bar (for tabs) ==================== */
+.hub-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 8px 0;
+    margin-top: 12px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.hub-actions-title {
+    width: 100%;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}

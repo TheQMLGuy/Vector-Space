@@ -1,0 +1,336 @@
+<div class="section-header">
+    <span class="section-icon">📈</span>
+    <h1 class="section-title">Calculus & Graphs</h1>
+    <span class="badge badge-cyan">Interactive</span>
+</div>
+
+<!-- Function Plotter -->
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">📊 Function Plotter</h2>
+        <div class="flex gap-sm">
+            <button class="btn btn-sm btn-secondary" id="btn-add-function">+ Add Function</button>
+            <button class="btn btn-sm btn-secondary" id="btn-clear-graph">Clear All</button>
+        </div>
+    </div>
+
+    <div id="functions-container">
+        <div class="function-input-row" data-index="0">
+            <div class="input-group" style="flex: 1;">
+                <label class="input-label">f₁(x) =</label>
+                <input type="text" class="input input-mono function-expr" placeholder="e.g., sin(x), x^2, exp(-x)"
+                    value="sin(x)">
+            </div>
+            <div class="color-picker-wrapper">
+                <input type="color" class="function-color" value="#00d4ff">
+            </div>
+            <button class="btn btn-sm btn-secondary btn-remove-function" style="visibility: hidden;">×</button>
+        </div>
+    </div>
+
+    <div class="grid grid-4 gap-md" style="margin-top: 16px;">
+        <div class="input-group">
+            <label class="input-label">X Min</label>
+            <input type="number" class="input input-mono" id="x-min" value="-10">
+        </div>
+        <div class="input-group">
+            <label class="input-label">X Max</label>
+            <input type="number" class="input input-mono" id="x-max" value="10">
+        </div>
+        <div class="input-group">
+            <label class="input-label">Y Min</label>
+            <input type="number" class="input input-mono" id="y-min" value="-5">
+        </div>
+        <div class="input-group">
+            <label class="input-label">Y Max</label>
+            <input type="number" class="input input-mono" id="y-max" value="5">
+        </div>
+    </div>
+
+    <button class="btn btn-primary" id="btn-plot" style="width: 100%; margin-top: 12px;">
+        Plot Functions
+    </button>
+
+    <div class="graph-container" id="main-graph" style="margin-top: 16px; height: 400px;"></div>
+</div>
+
+<div class="grid grid-2 gap-lg" style="margin-top: 24px;">
+    <!-- Derivative Calculator -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">∂ Derivative Calculator</h2>
+            <span class="badge badge-magenta">Symbolic</span>
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">Function f(x)</label>
+            <input type="text" class="input input-mono" id="deriv-function" placeholder="e.g., x^3 + 2*x^2 - x + 5"
+                value="x^3 + 2*x^2 - x + 5">
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">Evaluate at x =</label>
+            <input type="number" class="input input-mono" id="deriv-point" value="2">
+        </div>
+
+        <button class="btn btn-primary" id="btn-derivative" style="width: 100%;">
+            Calculate Derivative
+        </button>
+
+        <div class="result-box" style="margin-top: 16px;">
+            <div class="result-label">Derivative f'(x)</div>
+            <div class="result-value" id="deriv-symbolic">-</div>
+        </div>
+
+        <div class="result-box" style="margin-top: 8px;">
+            <div class="result-label">Value at Point</div>
+            <div class="result-value" id="deriv-value">-</div>
+        </div>
+
+        <div class="graph-container" id="derivative-graph" style="height: 200px; margin-top: 16px;"></div>
+    </div>
+
+    <!-- Integral Calculator -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">∫ Integral Calculator</h2>
+            <span class="badge badge-green">Numerical</span>
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">Function f(x)</label>
+            <input type="text" class="input input-mono" id="integral-function" placeholder="e.g., x^2" value="x^2">
+        </div>
+
+        <div class="grid grid-2 gap-md">
+            <div class="input-group">
+                <label class="input-label">Lower Bound (a)</label>
+                <input type="number" class="input input-mono" id="integral-lower" value="0">
+            </div>
+            <div class="input-group">
+                <label class="input-label">Upper Bound (b)</label>
+                <input type="number" class="input input-mono" id="integral-upper" value="3">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">Integration Method</label>
+            <select class="select" id="integral-method">
+                <option value="simpson">Simpson's Rule</option>
+                <option value="trapezoidal">Trapezoidal Rule</option>
+                <option value="midpoint">Midpoint Rule</option>
+                <option value="romberg">Romberg Integration</option>
+            </select>
+        </div>
+
+        <button class="btn btn-primary" id="btn-integrate" style="width: 100%;">
+            Calculate Integral
+        </button>
+
+        <div class="result-box" style="margin-top: 16px;">
+            <div class="result-label">Definite Integral ∫f(x)dx</div>
+            <div class="result-value" id="integral-result">-</div>
+        </div>
+
+        <div class="graph-container" id="integral-graph" style="height: 200px; margin-top: 16px;"></div>
+    </div>
+</div>
+
+<!-- Limits & Continuity -->
+<div class="card" style="margin-top: 24px;">
+    <div class="card-header">
+        <h2 class="card-title">🎯 Limits & Continuity</h2>
+    </div>
+
+    <div class="grid grid-3 gap-md">
+        <div class="input-group">
+            <label class="input-label">Function f(x)</label>
+            <input type="text" class="input input-mono" id="limit-function" placeholder="e.g., sin(x)/x"
+                value="sin(x)/x">
+        </div>
+        <div class="input-group">
+            <label class="input-label">x approaches</label>
+            <input type="text" class="input input-mono" id="limit-point" placeholder="e.g., 0, inf, -inf" value="0">
+        </div>
+        <div class="input-group">
+            <label class="input-label">Direction</label>
+            <select class="select" id="limit-direction">
+                <option value="both">Two-sided</option>
+                <option value="left">From Left (x⁻)</option>
+                <option value="right">From Right (x⁺)</option>
+            </select>
+        </div>
+    </div>
+
+    <button class="btn btn-primary" id="btn-limit" style="width: 100%; margin-top: 12px;">
+        Evaluate Limit
+    </button>
+
+    <div class="grid grid-3 gap-md" style="margin-top: 16px;">
+        <div class="result-box" style="padding: 12px; text-align: center;">
+            <div class="result-label">Left Limit</div>
+            <div class="result-value small" id="limit-left">-</div>
+        </div>
+        <div class="result-box" style="padding: 12px; text-align: center;">
+            <div class="result-label">Right Limit</div>
+            <div class="result-value small" id="limit-right">-</div>
+        </div>
+        <div class="result-box" style="padding: 12px; text-align: center;">
+            <div class="result-label">Limit</div>
+            <div class="result-value small" id="limit-result">-</div>
+        </div>
+    </div>
+</div>
+
+<!-- Taylor Series -->
+<div class="card" style="margin-top: 24px;">
+    <div class="card-header">
+        <h2 class="card-title">📐 Taylor Series Expansion</h2>
+        <span class="badge badge-cyan">Approximation</span>
+    </div>
+
+    <div class="grid grid-4 gap-md">
+        <div class="input-group">
+            <label class="input-label">Function f(x)</label>
+            <input type="text" class="input input-mono" id="taylor-function" placeholder="e.g., exp(x), sin(x)"
+                value="exp(x)">
+        </div>
+        <div class="input-group">
+            <label class="input-label">Expansion Point (a)</label>
+            <input type="number" class="input input-mono" id="taylor-point" value="0">
+        </div>
+        <div class="input-group">
+            <label class="input-label">Number of Terms</label>
+            <input type="number" class="input input-mono" id="taylor-terms" min="1" max="15" value="5">
+        </div>
+        <div class="input-group">
+            <label class="input-label">Evaluate at x =</label>
+            <input type="number" class="input input-mono" id="taylor-eval" value="1">
+        </div>
+    </div>
+
+    <button class="btn btn-primary" id="btn-taylor" style="width: 100%; margin-top: 12px;">
+        Calculate Taylor Series
+    </button>
+
+    <div class="result-box" style="margin-top: 16px;">
+        <div class="result-label">Taylor Polynomial</div>
+        <div class="result-value small" id="taylor-polynomial" style="word-break: break-all;">-</div>
+    </div>
+
+    <div class="grid grid-2 gap-md" style="margin-top: 12px;">
+        <div class="result-box" style="padding: 12px; text-align: center;">
+            <div class="result-label">Approximation at x</div>
+            <div class="result-value small" id="taylor-approx">-</div>
+        </div>
+        <div class="result-box" style="padding: 12px; text-align: center;">
+            <div class="result-label">Actual Value</div>
+            <div class="result-value small" id="taylor-actual">-</div>
+        </div>
+    </div>
+
+    <div class="graph-container" id="taylor-graph" style="height: 300px; margin-top: 16px;"></div>
+</div>
+
+<!-- Critical Points & Optimization -->
+<div class="card" style="margin-top: 24px;">
+    <div class="card-header">
+        <h2 class="card-title">🔍 Critical Points & Optimization</h2>
+    </div>
+
+    <div class="grid grid-3 gap-md">
+        <div class="input-group">
+            <label class="input-label">Function f(x)</label>
+            <input type="text" class="input input-mono" id="critical-function" placeholder="e.g., x^3 - 3*x"
+                value="x^3 - 3*x">
+        </div>
+        <div class="input-group">
+            <label class="input-label">Search Range Start</label>
+            <input type="number" class="input input-mono" id="critical-start" value="-3">
+        </div>
+        <div class="input-group">
+            <label class="input-label">Search Range End</label>
+            <input type="number" class="input input-mono" id="critical-end" value="3">
+        </div>
+    </div>
+
+    <button class="btn btn-primary" id="btn-critical" style="width: 100%; margin-top: 12px;">
+        Find Critical Points
+    </button>
+
+    <div class="result-box" style="margin-top: 16px;">
+        <div class="result-label">Critical Points Found</div>
+        <div id="critical-points-list" class="critical-points-container">
+            <p style="color: var(--text-muted); font-size: 14px;">Click "Find Critical Points" to analyze the function
+            </p>
+        </div>
+    </div>
+
+    <div class="graph-container" id="critical-graph" style="height: 250px; margin-top: 16px;"></div>
+</div>
+
+<!-- Parametric & Polar Plotting -->
+<div class="grid grid-2 gap-lg" style="margin-top: 24px;">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">🌀 Parametric Curves</h2>
+        </div>
+
+        <div class="grid grid-2 gap-md">
+            <div class="input-group">
+                <label class="input-label">x(t) =</label>
+                <input type="text" class="input input-mono" id="param-x" placeholder="e.g., cos(t)" value="cos(t)">
+            </div>
+            <div class="input-group">
+                <label class="input-label">y(t) =</label>
+                <input type="text" class="input input-mono" id="param-y" placeholder="e.g., sin(t)" value="sin(t)">
+            </div>
+        </div>
+
+        <div class="grid grid-2 gap-md">
+            <div class="input-group">
+                <label class="input-label">t min</label>
+                <input type="number" class="input input-mono" id="param-t-min" value="0">
+            </div>
+            <div class="input-group">
+                <label class="input-label">t max</label>
+                <input type="number" class="input input-mono" id="param-t-max" value="6.283">
+            </div>
+        </div>
+
+        <button class="btn btn-primary" id="btn-parametric" style="width: 100%; margin-top: 12px;">
+            Plot Parametric Curve
+        </button>
+
+        <div class="graph-container" id="parametric-graph" style="height: 250px; margin-top: 16px;"></div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">🌐 Polar Curves</h2>
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">r(θ) =</label>
+            <input type="text" class="input input-mono" id="polar-r" placeholder="e.g., 1 + cos(theta)"
+                value="1 + cos(theta)">
+        </div>
+
+        <div class="grid grid-2 gap-md">
+            <div class="input-group">
+                <label class="input-label">θ min (radians)</label>
+                <input type="number" class="input input-mono" id="polar-theta-min" value="0">
+            </div>
+            <div class="input-group">
+                <label class="input-label">θ max (radians)</label>
+                <input type="number" class="input input-mono" id="polar-theta-max" value="6.283">
+            </div>
+        </div>
+
+        <button class="btn btn-primary" id="btn-polar" style="width: 100%; margin-top: 12px;">
+            Plot Polar Curve
+        </button>
+
+        <div class="graph-container" id="polar-graph" style="height: 250px; margin-top: 16px;"></div>
+    </div>
+</div>

@@ -1,0 +1,470 @@
+/* Circuit Simulator Styles */
+
+.circuit-simulator {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 80px);
+    overflow: hidden;
+}
+
+/* Header */
+.sim-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+}
+
+.sim-controls {
+    display: flex;
+    gap: 8px;
+}
+
+/* Workspace Layout */
+.sim-workspace {
+    display: flex;
+    flex: 1;
+    gap: 16px;
+    overflow: hidden;
+}
+
+/* Component Library */
+.component-library {
+    width: 160px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 12px;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.library-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.component-category {
+    margin-bottom: 16px;
+}
+
+.category-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.component-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    margin-bottom: 4px;
+    background: var(--bg-tertiary);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    cursor: grab;
+    transition: all 0.2s ease;
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.component-item:hover {
+    border-color: var(--accent-cyan);
+    color: var(--text-primary);
+    transform: translateX(2px);
+}
+
+.component-item:active {
+    cursor: grabbing;
+}
+
+.component-item.dragging {
+    opacity: 0.5;
+}
+
+.component-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-cyan);
+}
+
+/* Canvas Wrapper */
+.canvas-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Canvas Toolbar */
+.canvas-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.tool-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.tool-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.tool-btn.active {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+    border-color: var(--accent-cyan);
+}
+
+.tool-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--border-subtle);
+    margin: 0 8px;
+}
+
+.zoom-level {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-left: 8px;
+    font-family: var(--font-mono);
+}
+
+/* Circuit Canvas */
+.circuit-canvas {
+    flex: 1;
+    overflow: hidden;
+    cursor: default;
+    background: var(--bg-primary);
+}
+
+#circuit-svg {
+    display: block;
+}
+
+.canvas-hint {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: var(--radius-md);
+    font-size: 12px;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+/* SVG Components */
+.circuit-component {
+    cursor: move;
+    transition: filter 0.15s ease;
+}
+
+.circuit-component:hover {
+    filter: drop-shadow(0 0 8px var(--accent-cyan));
+}
+
+.circuit-component.selected {
+    filter: drop-shadow(0 0 12px var(--accent-cyan));
+}
+
+.circuit-component .component-body {
+    fill: none;
+    stroke: var(--text-primary);
+    stroke-width: 2;
+}
+
+.circuit-component .terminal {
+    fill: var(--accent-cyan);
+    stroke: none;
+    cursor: crosshair;
+}
+
+.circuit-component .terminal:hover {
+    fill: var(--accent-magenta);
+    r: 6;
+}
+
+.circuit-component .value-label {
+    fill: var(--accent-cyan);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-anchor: middle;
+}
+
+.circuit-component .result-label {
+    fill: var(--accent-green);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-anchor: middle;
+}
+
+/* Wires */
+.circuit-wire {
+    stroke: var(--accent-cyan);
+    stroke-width: 2;
+    fill: none;
+    cursor: pointer;
+}
+
+.circuit-wire:hover {
+    stroke: var(--accent-magenta);
+    stroke-width: 3;
+}
+
+.circuit-wire.selected {
+    stroke: var(--accent-magenta);
+    stroke-width: 3;
+}
+
+.wire-junction {
+    fill: var(--accent-cyan);
+}
+
+.temp-wire {
+    stroke: var(--accent-magenta);
+    stroke-width: 2;
+    stroke-dasharray: 5, 5;
+    fill: none;
+    pointer-events: none;
+}
+
+/* Properties Panel */
+.properties-panel {
+    width: 220px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    flex-shrink: 0;
+    overflow-y: auto;
+}
+
+.panel-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.no-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.no-selection-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+}
+
+/* Component Properties */
+.prop-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.prop-type {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--accent-cyan);
+}
+
+.prop-id {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+.prop-group {
+    margin-bottom: 16px;
+}
+
+.prop-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.prop-input-group {
+    display: flex;
+    gap: 8px;
+}
+
+.prop-input-group .input {
+    flex: 1;
+}
+
+.prop-input-group .select {
+    width: 70px;
+}
+
+.rotation-btns {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#rotation-value {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.prop-divider {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 16px 0;
+}
+
+.prop-results {
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    padding: 12px;
+}
+
+.prop-results .result-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-green);
+    margin-bottom: 8px;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 4px 0;
+}
+
+.result-item span:first-child {
+    color: var(--text-muted);
+}
+
+.result-item span:last-child {
+    font-family: var(--font-mono);
+    color: var(--text-primary);
+}
+
+/* LED Glow Animation */
+.led-glow {
+    animation: ledPulse 1s ease-in-out infinite;
+}
+
+@keyframes ledPulse {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 4px var(--accent-yellow));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 12px var(--accent-yellow));
+    }
+}
+
+/* Current Flow Animation */
+.current-flow {
+    stroke-dasharray: 10, 5;
+    animation: flowAnimation 0.5s linear infinite;
+}
+
+@keyframes flowAnimation {
+    from {
+        stroke-dashoffset: 15;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Simulation Active */
+.sim-active .circuit-wire {
+    stroke: var(--accent-green);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .properties-panel {
+        width: 180px;
+    }
+
+    .component-library {
+        width: 140px;
+    }
+}
+
+@media (max-width: 900px) {
+    .sim-workspace {
+        flex-direction: column;
+    }
+
+    .component-library {
+        width: 100%;
+        height: auto;
+        max-height: 150px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .component-category {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-bottom: 0;
+    }
+
+    .properties-panel {
+        width: 100%;
+        max-height: 200px;
+    }
+}

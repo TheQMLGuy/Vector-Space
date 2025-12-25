@@ -1,0 +1,400 @@
+<div class="section-header">
+    <span class="section-icon">🧠</span>
+    <h1 class="section-title">Neuroscience Lab</h1>
+    <span class="badge badge-magenta">Interactive</span>
+</div>
+
+<div class="grid grid-2 gap-lg">
+    <!-- Neuron Simulator -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">⚡ Neuron Simulator</h2>
+            <button class="btn btn-sm btn-secondary" id="btn-neuron-reset">Reset</button>
+        </div>
+
+        <div class="neuron-container">
+            <div class="neuron-visual">
+                <div class="dendrites">
+                    <div class="dendrite d1"></div>
+                    <div class="dendrite d2"></div>
+                    <div class="dendrite d3"></div>
+                    <div class="dendrite d4"></div>
+                </div>
+                <div class="soma" id="soma">
+                    <div class="nucleus"></div>
+                    <span class="membrane-label" id="membrane-voltage">-70 mV</span>
+                </div>
+                <div class="axon-hillock"></div>
+                <div class="axon">
+                    <div class="myelin m1"></div>
+                    <div class="node-ranvier n1"></div>
+                    <div class="myelin m2"></div>
+                    <div class="node-ranvier n2"></div>
+                    <div class="myelin m3"></div>
+                </div>
+                <div class="axon-terminal">
+                    <div class="terminal-branch tb1"></div>
+                    <div class="terminal-branch tb2"></div>
+                    <div class="terminal-branch tb3"></div>
+                </div>
+                <div class="action-potential" id="action-potential"></div>
+            </div>
+        </div>
+
+        <div class="input-group" style="margin-top: 16px;">
+            <label class="input-label">Membrane Potential (mV)</label>
+            <input type="range" class="slider" id="membrane-slider" min="-90" max="40" value="-70">
+            <div class="slider-labels">
+                <span>-90 mV</span>
+                <span class="threshold-marker">-55 mV (Threshold)</span>
+                <span>+40 mV</span>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" id="btn-fire-neuron" style="width: 100%; margin-top: 12px;">
+            🔥 Fire Action Potential
+        </button>
+
+        <div class="result-box" style="margin-top: 16px;">
+            <div class="result-label">Neuron State</div>
+            <div class="result-value" id="neuron-state">Resting</div>
+            <div class="state-description" id="state-description">
+                The neuron is at resting potential. Na⁺/K⁺ pumps maintain the -70mV gradient.
+            </div>
+        </div>
+    </div>
+
+    <!-- Nernst Equation Calculator -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">🧪 Nernst Equation Calculator</h2>
+            <span class="badge badge-cyan">E = RT/zF × ln([X]ₒ/[X]ᵢ)</span>
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">Ion Type</label>
+            <select class="select" id="nernst-ion">
+                <option value="K">K⁺ (Potassium)</option>
+                <option value="Na">Na⁺ (Sodium)</option>
+                <option value="Ca">Ca²⁺ (Calcium)</option>
+                <option value="Cl">Cl⁻ (Chloride)</option>
+            </select>
+        </div>
+
+        <div class="grid grid-2 gap-md">
+            <div class="input-group">
+                <label class="input-label">[X]ᵢₙ (mM) - Inside</label>
+                <input type="number" class="input input-mono" id="nernst-inside" value="140"
+                    placeholder="Intracellular">
+            </div>
+            <div class="input-group">
+                <label class="input-label">[X]ₒᵤₜ (mM) - Outside</label>
+                <input type="number" class="input input-mono" id="nernst-outside" value="5" placeholder="Extracellular">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">Temperature (°C)</label>
+            <input type="number" class="input input-mono" id="nernst-temp" value="37" placeholder="Body temp: 37°C">
+        </div>
+
+        <button class="btn btn-primary" id="btn-nernst-calculate" style="width: 100%; margin-top: 12px;">
+            Calculate Equilibrium Potential
+        </button>
+
+        <div class="result-box" style="margin-top: 16px;">
+            <div class="result-label">Equilibrium Potential (Eᵢₒₙ)</div>
+            <div class="result-value" id="nernst-result">-89.1 mV</div>
+        </div>
+
+        <div class="ion-reference" style="margin-top: 16px;">
+            <h4 style="color: var(--text-secondary); margin-bottom: 8px;">Typical Ion Concentrations (mM)</h4>
+            <table class="ion-table">
+                <thead>
+                    <tr>
+                        <th>Ion</th>
+                        <th>Inside</th>
+                        <th>Outside</th>
+                        <th>Eᵢₒₙ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>K⁺</td>
+                        <td>140</td>
+                        <td>5</td>
+                        <td>-89 mV</td>
+                    </tr>
+                    <tr>
+                        <td>Na⁺</td>
+                        <td>15</td>
+                        <td>145</td>
+                        <td>+60 mV</td>
+                    </tr>
+                    <tr>
+                        <td>Ca²⁺</td>
+                        <td>0.0001</td>
+                        <td>2</td>
+                        <td>+123 mV</td>
+                    </tr>
+                    <tr>
+                        <td>Cl⁻</td>
+                        <td>10</td>
+                        <td>110</td>
+                        <td>-64 mV</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Hodgkin-Huxley Model -->
+<div class="card" style="margin-top: 24px;">
+    <div class="card-header">
+        <h2 class="card-title">📈 Hodgkin-Huxley Action Potential Model</h2>
+        <span class="badge badge-green">Real-time Simulation</span>
+    </div>
+
+    <div class="grid grid-4 gap-md">
+        <div class="input-group">
+            <label class="input-label">gNa (mS/cm²)</label>
+            <input type="number" class="input input-mono" id="hh-gna" value="120" step="10">
+        </div>
+        <div class="input-group">
+            <label class="input-label">gK (mS/cm²)</label>
+            <input type="number" class="input input-mono" id="hh-gk" value="36" step="5">
+        </div>
+        <div class="input-group">
+            <label class="input-label">gL (mS/cm²)</label>
+            <input type="number" class="input input-mono" id="hh-gl" value="0.3" step="0.1">
+        </div>
+        <div class="input-group">
+            <label class="input-label">I inject (μA/cm²)</label>
+            <input type="number" class="input input-mono" id="hh-current" value="10" step="1">
+        </div>
+    </div>
+
+    <button class="btn btn-primary" id="btn-hh-simulate" style="width: 100%; margin-top: 12px;">
+        ▶ Run Simulation
+    </button>
+
+    <div class="graph-container" id="hh-graph" style="height: 350px; margin-top: 16px;"></div>
+
+    <div class="grid grid-4 gap-md" style="margin-top: 16px;">
+        <div class="result-box" style="padding: 12px; text-align: center;">
+            <div class="result-label">Peak Amplitude</div>
+            <div class="result-value small" id="hh-peak">-</div>
+        </div>
+        <div class="result-box" style="padding: 12px; text-align: center;">
+            <div class="result-label">m gate (Na⁺ activation)</div>
+            <div class="result-value small" id="hh-m">-</div>
+        </div>
+        <div class="result-box" style="padding: 12px; text-align: center;">
+            <div class="result-label">h gate (Na⁺ inactivation)</div>
+            <div class="result-value small" id="hh-h">-</div>
+        </div>
+        <div class="result-box" style="padding: 12px; text-align: center;">
+            <div class="result-label">n gate (K⁺ activation)</div>
+            <div class="result-value small" id="hh-n">-</div>
+        </div>
+    </div>
+</div>
+
+<!-- Synaptic Transmission -->
+<div class="grid grid-2 gap-lg" style="margin-top: 24px;">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">🔗 Synaptic Transmission</h2>
+            <button class="btn btn-sm btn-secondary" id="btn-synapse-reset">Reset</button>
+        </div>
+
+        <div class="synapse-container">
+            <div class="presynaptic">
+                <div class="vesicle-pool">
+                    <div class="vesicle v1" id="vesicle-1"></div>
+                    <div class="vesicle v2" id="vesicle-2"></div>
+                    <div class="vesicle v3" id="vesicle-3"></div>
+                    <div class="vesicle v4" id="vesicle-4"></div>
+                    <div class="vesicle v5" id="vesicle-5"></div>
+                </div>
+                <div class="presynaptic-membrane"></div>
+                <div class="calcium-channels">
+                    <div class="channel"></div>
+                    <div class="channel"></div>
+                    <div class="channel"></div>
+                </div>
+            </div>
+            <div class="synaptic-cleft">
+                <div class="neurotransmitter-zone" id="nt-zone"></div>
+            </div>
+            <div class="postsynaptic">
+                <div class="postsynaptic-membrane"></div>
+                <div class="receptors">
+                    <div class="receptor r1"></div>
+                    <div class="receptor r2"></div>
+                    <div class="receptor r3"></div>
+                    <div class="receptor r4"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-bar" style="margin-top: 16px;">
+            <button class="tab-btn active" data-synapse="excitatory">Excitatory (EPSP)</button>
+            <button class="tab-btn" data-synapse="inhibitory">Inhibitory (IPSP)</button>
+        </div>
+
+        <button class="btn btn-primary" id="btn-release-nt" style="width: 100%; margin-top: 12px;">
+            ⚡ Trigger Release
+        </button>
+
+        <div class="result-box" style="margin-top: 16px;">
+            <div class="result-label">Postsynaptic Potential</div>
+            <div class="result-value" id="synapse-psp">0 mV</div>
+            <div id="synapse-type-info" style="color: var(--text-muted); font-size: 13px; margin-top: 4px;">
+                Glutamate → AMPA/NMDA receptors → Na⁺ influx → Depolarization
+            </div>
+        </div>
+    </div>
+
+    <!-- Brain Wave Analyzer -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">🌊 Brain Wave Analyzer</h2>
+            <span class="badge badge-cyan">EEG</span>
+        </div>
+
+        <div class="wave-selector">
+            <button class="wave-btn active" data-wave="delta">δ Delta</button>
+            <button class="wave-btn" data-wave="theta">θ Theta</button>
+            <button class="wave-btn" data-wave="alpha">α Alpha</button>
+            <button class="wave-btn" data-wave="beta">β Beta</button>
+            <button class="wave-btn" data-wave="gamma">γ Gamma</button>
+        </div>
+
+        <div class="wave-canvas-container">
+            <canvas id="wave-canvas" width="600" height="150"></canvas>
+        </div>
+
+        <div class="grid grid-2 gap-md" style="margin-top: 16px;">
+            <div class="result-box" style="padding: 12px; text-align: center;">
+                <div class="result-label">Frequency Range</div>
+                <div class="result-value small" id="wave-frequency">0.5 - 4 Hz</div>
+            </div>
+            <div class="result-box" style="padding: 12px; text-align: center;">
+                <div class="result-label">Brain State</div>
+                <div class="result-value small" id="wave-state">Deep Sleep</div>
+            </div>
+        </div>
+
+        <div class="wave-info" id="wave-info" style="margin-top: 16px;">
+            <h4 style="color: var(--accent-cyan);">Delta Waves (δ)</h4>
+            <p>Associated with deep, dreamless sleep and regeneration. High amplitude, low frequency waves indicate the
+                brain is in its most restorative state. Important for immune function and memory consolidation.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Neural Network Topology -->
+<div class="card" style="margin-top: 24px;">
+    <div class="card-header">
+        <h2 class="card-title">🧩 Neural Network Topology</h2>
+        <span class="badge badge-magenta">Brain Regions</span>
+    </div>
+
+    <div class="brain-topology-container">
+        <div class="brain-diagram">
+            <svg viewBox="0 0 400 300" id="brain-svg">
+                <!-- Brain outline -->
+                <path class="brain-outline"
+                    d="M200,20 C280,20 350,80 360,150 C370,220 320,280 200,280 C80,280 30,220 40,150 C50,80 120,20 200,20"
+                    fill="none" stroke="var(--border-glow)" stroke-width="2" />
+
+                <!-- Brain regions -->
+                <g class="brain-regions">
+                    <circle class="region" id="region-frontal" cx="100" cy="100" r="35" data-region="frontal" />
+                    <text x="100" y="105" class="region-label">Frontal</text>
+
+                    <circle class="region" id="region-parietal" cx="200" cy="80" r="30" data-region="parietal" />
+                    <text x="200" y="85" class="region-label">Parietal</text>
+
+                    <circle class="region" id="region-temporal" cx="80" cy="180" r="28" data-region="temporal" />
+                    <text x="80" y="185" class="region-label">Temporal</text>
+
+                    <circle class="region" id="region-occipital" cx="300" cy="120" r="28" data-region="occipital" />
+                    <text x="300" y="125" class="region-label">Occipital</text>
+
+                    <circle class="region" id="region-cerebellum" cx="300" cy="220" r="35" data-region="cerebellum" />
+                    <text x="300" y="225" class="region-label">Cerebellum</text>
+
+                    <circle class="region" id="region-brainstem" cx="200" cy="250" r="25" data-region="brainstem" />
+                    <text x="200" y="255" class="region-label">Brainstem</text>
+
+                    <circle class="region" id="region-hippocampus" cx="180" cy="170" r="22" data-region="hippocampus" />
+                    <text x="180" y="175" class="region-label" style="font-size: 8px;">Hippocampus</text>
+                </g>
+
+                <!-- Connections (hidden by default, shown on hover) -->
+                <g class="connections" id="brain-connections"></g>
+            </svg>
+        </div>
+
+        <div class="region-info-panel">
+            <div class="result-box" id="region-info" style="min-height: 200px;">
+                <div class="result-label">Select a Brain Region</div>
+                <div class="result-value small" id="region-name">Click on a region to view details</div>
+                <div id="region-function" style="margin-top: 12px; color: var(--text-secondary);">
+                    Interactive brain map showing major cortical and subcortical regions. Click on any region to see its
+                    primary functions and connections.
+                </div>
+                <div id="region-connections" style="margin-top: 12px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Neurotransmitter Reference -->
+<div class="card" style="margin-top: 24px;">
+    <div class="card-header">
+        <h2 class="card-title">🧬 Neurotransmitter Quick Reference</h2>
+    </div>
+
+    <div class="nt-grid">
+        <div class="nt-card excitatory">
+            <div class="nt-icon">⚡</div>
+            <div class="nt-name">Glutamate</div>
+            <div class="nt-type">Excitatory</div>
+            <div class="nt-desc">Main excitatory NT, learning & memory</div>
+        </div>
+        <div class="nt-card inhibitory">
+            <div class="nt-icon">🛑</div>
+            <div class="nt-name">GABA</div>
+            <div class="nt-type">Inhibitory</div>
+            <div class="nt-desc">Main inhibitory NT, reduces anxiety</div>
+        </div>
+        <div class="nt-card modulatory">
+            <div class="nt-icon">😊</div>
+            <div class="nt-name">Dopamine</div>
+            <div class="nt-type">Modulatory</div>
+            <div class="nt-desc">Reward, motivation, movement</div>
+        </div>
+        <div class="nt-card modulatory">
+            <div class="nt-icon">😌</div>
+            <div class="nt-name">Serotonin</div>
+            <div class="nt-type">Modulatory</div>
+            <div class="nt-desc">Mood, sleep, appetite</div>
+        </div>
+        <div class="nt-card excitatory">
+            <div class="nt-icon">💪</div>
+            <div class="nt-name">Acetylcholine</div>
+            <div class="nt-type">Both</div>
+            <div class="nt-desc">Muscle control, attention, memory</div>
+        </div>
+        <div class="nt-card modulatory">
+            <div class="nt-icon">⚠️</div>
+            <div class="nt-name">Norepinephrine</div>
+            <div class="nt-type">Modulatory</div>
+            <div class="nt-desc">Alertness, fight-or-flight response</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+{
+  "name": "qagi-lab",
+  "version": "1.0.0",
+  "description": "Multi-tabbed analysis tool for QAGI preparation",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --enable-logging",
+    "build": "electron-builder",
+    "test": "echo \"Tests coming soon\" && exit 0"
+  },
+  "keywords": [
+    "quantum",
+    "ai",
+    "analysis",
+    "circuits",
+    "matrices",
+    "calculus",
+    "statistics"
+  ],
+  "author": "QAGI Lab",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "dependencies": {
+    "mathjs": "^12.2.1",
+    "chart.js": "^4.4.1",
+    "plotly.js-dist-min": "^2.27.1"
+  },
+  "build": {
+    "appId": "com.qagi.lab",
+    "productName": "QAGI Lab",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icons/icon.ico"
+    }
+  }
+}

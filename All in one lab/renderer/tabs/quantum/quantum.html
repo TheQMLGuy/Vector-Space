@@ -1,0 +1,277 @@
+<div class="section-header">
+    <span class="section-icon">🔮</span>
+    <h1 class="section-title">Quantum Circuits Lab</h1>
+    <span class="badge badge-magenta">Simulator</span>
+</div>
+
+<div class="grid grid-2 gap-lg">
+    <!-- Quantum Circuit Builder -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">⚛️ Circuit Builder</h2>
+            <div class="flex gap-sm">
+                <button class="btn btn-sm btn-secondary" id="btn-add-qubit">+ Qubit</button>
+                <button class="btn btn-sm btn-secondary" id="btn-clear-circuit">Clear</button>
+            </div>
+        </div>
+
+        <div class="circuit-workspace">
+            <div class="circuit-grid" id="circuit-grid">
+                <!-- Qubits will be rendered here -->
+            </div>
+        </div>
+
+        <div class="gate-palette">
+            <div class="palette-label">Quantum Gates</div>
+            <div class="gate-buttons">
+                <button class="gate-btn" data-gate="H" title="Hadamard Gate">H</button>
+                <button class="gate-btn" data-gate="X" title="Pauli-X (NOT)">X</button>
+                <button class="gate-btn" data-gate="Y" title="Pauli-Y">Y</button>
+                <button class="gate-btn" data-gate="Z" title="Pauli-Z">Z</button>
+                <button class="gate-btn" data-gate="S" title="S Gate (π/2)">S</button>
+                <button class="gate-btn" data-gate="T" title="T Gate (π/4)">T</button>
+                <button class="gate-btn cnot" data-gate="CNOT" title="Controlled-NOT">CX</button>
+                <button class="gate-btn" data-gate="SWAP" title="SWAP Gate">⇄</button>
+                <button class="gate-btn measure" data-gate="M" title="Measurement">M</button>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" id="btn-run-circuit" style="width: 100%; margin-top: 16px;">
+            ▶ Run Circuit
+        </button>
+    </div>
+
+    <!-- State Vector Display -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">📊 State Vector</h2>
+            <span class="badge badge-cyan" id="qubit-count-badge">2 Qubits</span>
+        </div>
+
+        <div class="state-vector-display" id="state-vector">
+            <div class="state-item">
+                <span class="state-basis">|00⟩</span>
+                <div class="state-bar-container">
+                    <div class="state-bar" style="width: 100%;"></div>
+                </div>
+                <span class="state-prob">1.000</span>
+                <span class="state-amp">(1+0i)</span>
+            </div>
+        </div>
+
+        <div class="result-box" style="margin-top: 16px;">
+            <div class="result-label">Measurement Probabilities</div>
+            <div id="measurement-probs" class="measurement-bars">
+                <!-- Measurement probabilities will be shown here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bloch Sphere Visualization -->
+<div class="card" style="margin-top: 24px;">
+    <div class="card-header">
+        <h2 class="card-title">🌐 Bloch Sphere</h2>
+        <div class="flex gap-sm">
+            <select class="select" id="bloch-qubit-select" style="width: 120px;">
+                <option value="0">Qubit 0</option>
+                <option value="1">Qubit 1</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="grid grid-2 gap-lg">
+        <div class="bloch-container" id="bloch-sphere">
+            <!-- Bloch sphere canvas -->
+            <canvas id="bloch-canvas" width="300" height="300"></canvas>
+        </div>
+
+        <div class="bloch-info">
+            <div class="bloch-coords">
+                <div class="coord-item">
+                    <span class="coord-label">θ (Theta)</span>
+                    <span class="coord-value" id="bloch-theta">0°</span>
+                </div>
+                <div class="coord-item">
+                    <span class="coord-label">φ (Phi)</span>
+                    <span class="coord-value" id="bloch-phi">0°</span>
+                </div>
+                <div class="coord-item">
+                    <span class="coord-label">X</span>
+                    <span class="coord-value" id="bloch-x">0.000</span>
+                </div>
+                <div class="coord-item">
+                    <span class="coord-label">Y</span>
+                    <span class="coord-value" id="bloch-y">0.000</span>
+                </div>
+                <div class="coord-item">
+                    <span class="coord-label">Z</span>
+                    <span class="coord-value" id="bloch-z">1.000</span>
+                </div>
+            </div>
+            <div class="state-notation">
+                <div class="notation-label">State Notation</div>
+                <div class="notation-value" id="state-notation">|ψ⟩ = |0⟩</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Gate Reference & Operations -->
+<div class="grid grid-2 gap-lg" style="margin-top: 24px;">
+    <!-- Single Qubit Operations -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">🎛️ Quick Operations</h2>
+        </div>
+
+        <div class="quick-ops">
+            <div class="op-group">
+                <div class="op-label">Apply to Qubit</div>
+                <select class="select" id="op-qubit-select" style="width: 100%;">
+                    <option value="0">Qubit 0</option>
+                    <option value="1">Qubit 1</option>
+                </select>
+            </div>
+
+            <div class="op-buttons">
+                <button class="btn btn-secondary op-btn" data-op="H">Hadamard</button>
+                <button class="btn btn-secondary op-btn" data-op="X">Pauli-X</button>
+                <button class="btn btn-secondary op-btn" data-op="Y">Pauli-Y</button>
+                <button class="btn btn-secondary op-btn" data-op="Z">Pauli-Z</button>
+                <button class="btn btn-secondary op-btn" data-op="S">S Gate</button>
+                <button class="btn btn-secondary op-btn" data-op="T">T Gate</button>
+            </div>
+
+            <div class="op-group" style="margin-top: 16px;">
+                <div class="op-label">Rotation Gates</div>
+                <div class="rotation-inputs">
+                    <div class="input-group">
+                        <label class="input-label">Angle (degrees)</label>
+                        <input type="number" class="input input-mono" id="rotation-angle" value="90">
+                    </div>
+                    <div class="flex gap-sm" style="margin-top: 8px;">
+                        <button class="btn btn-secondary" data-rot="RX">Rx</button>
+                        <button class="btn btn-secondary" data-rot="RY">Ry</button>
+                        <button class="btn btn-secondary" data-rot="RZ">Rz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gate Reference -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">📚 Gate Reference</h2>
+        </div>
+
+        <div class="gate-reference">
+            <div class="gate-info" id="gate-info-panel">
+                <div class="gate-info-header">
+                    <span class="gate-symbol">H</span>
+                    <span class="gate-name">Hadamard Gate</span>
+                </div>
+                <div class="gate-description">
+                    Creates an equal superposition from a basis state. Maps |0⟩ to (|0⟩+|1⟩)/√2 and |1⟩ to (|0⟩-|1⟩)/√2.
+                </div>
+                <div class="gate-matrix">
+                    <div class="matrix-label">Matrix Representation</div>
+                    <div class="matrix-display" id="gate-matrix">
+                        <table class="quantum-matrix">
+                            <tr>
+                                <td>1/√2</td>
+                                <td>1/√2</td>
+                            </tr>
+                            <tr>
+                                <td>1/√2</td>
+                                <td>-1/√2</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gate-list">
+                <button class="gate-ref-btn active" data-ref="H">H</button>
+                <button class="gate-ref-btn" data-ref="X">X</button>
+                <button class="gate-ref-btn" data-ref="Y">Y</button>
+                <button class="gate-ref-btn" data-ref="Z">Z</button>
+                <button class="gate-ref-btn" data-ref="S">S</button>
+                <button class="gate-ref-btn" data-ref="T">T</button>
+                <button class="gate-ref-btn" data-ref="CNOT">CX</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Entanglement & Bell States -->
+<div class="card" style="margin-top: 24px;">
+    <div class="card-header">
+        <h2 class="card-title">🔗 Bell States & Entanglement</h2>
+        <span class="badge badge-green">Presets</span>
+    </div>
+
+    <div class="bell-states-grid">
+        <button class="bell-state-btn" data-bell="phi_plus">
+            <span class="bell-name">|Φ⁺⟩</span>
+            <span class="bell-expr">(|00⟩ + |11⟩)/√2</span>
+        </button>
+        <button class="bell-state-btn" data-bell="phi_minus">
+            <span class="bell-name">|Φ⁻⟩</span>
+            <span class="bell-expr">(|00⟩ - |11⟩)/√2</span>
+        </button>
+        <button class="bell-state-btn" data-bell="psi_plus">
+            <span class="bell-name">|Ψ⁺⟩</span>
+            <span class="bell-expr">(|01⟩ + |10⟩)/√2</span>
+        </button>
+        <button class="bell-state-btn" data-bell="psi_minus">
+            <span class="bell-name">|Ψ⁻⟩</span>
+            <span class="bell-expr">(|01⟩ - |10⟩)/√2</span>
+        </button>
+    </div>
+
+    <div class="entanglement-info" style="margin-top: 16px;">
+        <div class="result-box">
+            <div class="result-label">Entanglement Measure</div>
+            <div class="flex items-center gap-lg">
+                <div>
+                    <span class="result-value" id="entanglement-value">0.000</span>
+                    <span style="color: var(--text-muted); font-size: 14px;">Von Neumann Entropy</span>
+                </div>
+                <div class="entanglement-bar-container">
+                    <div class="entanglement-bar" id="entanglement-bar" style="width: 0%;"></div>
+                </div>
+                <span id="entanglement-status" class="badge badge-cyan">Separable</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Data Hub Integration -->
+<div class="card" style="margin-top: 24px;">
+    <div class="card-header">
+        <h2 class="card-title">🔄 Data Hub</h2>
+        <span class="badge badge-purple">Cross-Tab</span>
+    </div>
+    <div class="grid grid-2 gap-lg">
+        <div>
+            <label class="input-label">Export to Hub</label>
+            <div class="hub-actions">
+                <button class="export-btn" id="hub-export-state">🌀 State Vector</button>
+                <button class="export-btn" id="hub-export-amplitudes">📊 Amplitudes (Complex)</button>
+                <button class="export-btn" id="hub-export-probs">📈 Probabilities</button>
+                <button class="export-btn" id="hub-export-gate">🔲 Gate Matrix</button>
+            </div>
+        </div>
+        <div>
+            <label class="input-label">Import from Hub</label>
+            <div class="hub-actions">
+                <button class="import-btn" id="hub-import-unitary">📊 Import Unitary Gate</button>
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">
+                Visualize amplitudes in Complex tab, analyze gate matrices in Matrices tab
+            </p>
+        </div>
+    </div>
+</div>

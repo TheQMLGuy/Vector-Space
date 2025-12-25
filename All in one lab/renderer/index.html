@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';">
+    <title>QAGI Lab - Quantum + AGI Analysis Tool</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/integration.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">⚛</span>
+                    <span class="logo-text">QAGI Lab</span>
+                </div>
+            </div>
+
+            <ul class="nav-tabs">
+                <li class="nav-item active" data-tab="neuralnet">
+                    <span class="nav-icon">🕸️</span>
+                    <span class="nav-label">Neural Net</span>
+                </li>
+                <li class="nav-item" data-tab="electrical">
+                    <span class="nav-icon">⚡</span>
+                    <span class="nav-label">Electrical</span>
+                </li>
+                <li class="nav-item" data-tab="quantum">
+                    <span class="nav-icon">🔮</span>
+                    <span class="nav-label">Quantum</span>
+                </li>
+                <li class="nav-item" data-tab="matrices">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-label">Matrices</span>
+                </li>
+                <li class="nav-item" data-tab="calculus">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-label">Calculus</span>
+                </li>
+                <li class="nav-item" data-tab="complex">
+                    <span class="nav-icon">🌀</span>
+                    <span class="nav-label">Complex</span>
+                </li>
+                <li class="nav-item" data-tab="statistics">
+                    <span class="nav-icon">🎲</span>
+                    <span class="nav-label">Statistics</span>
+                </li>
+                <li class="nav-item" data-tab="bitwise">
+                    <span class="nav-icon">💾</span>
+                    <span class="nav-label">Bitwise</span>
+                </li>
+                <li class="nav-item" data-tab="neuroscience">
+                    <span class="nav-icon">🧠</span>
+                    <span class="nav-label">Neuro</span>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="version-info">v1.0.0</div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+            <div id="tab-content" class="tab-content">
+                <!-- Tab content will be loaded dynamically -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Load Libraries -->
+    <script src="../node_modules/mathjs/lib/browser/math.js"></script>
+    <script src="../node_modules/chart.js/dist/chart.umd.js"></script>
+    <script src="../node_modules/plotly.js-dist-min/plotly.min.js"></script>
+
+    <!-- Load App Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/data-hub.js"></script>
+    <script src="js/integration-panel.js"></script>
+    <script src="js/tab-manager.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
